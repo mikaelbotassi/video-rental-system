@@ -1,0 +1,259 @@
+@import "bootstrap.css";
+
+body { 
+  background: #F7F7F7;
+  font-weight: 400 }
+
+[class*="container"] { 
+  position: relative;
+  z-index: 3 }
+
+.wrapper { padding: calc(5rem + 5vw) 0 }
+
+.bg-gradient-primary {
+  background: rgb(23,69,90);
+  background-image: linear-gradient(to right top, #17455a, #07687d, #008e9b, #11b5b1, #4bdcbf); }
+
+.bg-gradient-secondary {
+  background: rgb(117,22,62);
+  background: linear-gradient(15deg, rgba(117,22,62,1) 39%, rgba(159,53,99,1) 100%); }
+
+#about .circle,
+#exams .circle,
+#business .circle { 
+  animation-name: orbit;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear 
+}
+
+.flex-text-underline{
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+
+.center.flex-text-underline{
+  align-items:center;
+}
+
+.flex-text-underline::after{
+  content:"";
+  width:80%;
+  background-color:currentColor;
+  height:5px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 3;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 0.5;
+}
+/* Animations */
+@keyframes orbit {
+  0%   { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(-360deg); } 
+}
+
+
+
+#exams a { 
+  transition: 300ms all;
+  text-decoration: none;
+  position: relative;
+  color: currentColor }
+
+#exams a:hover { color: var(--flex-primary) }
+
+@media(max-width:767.98px){
+
+  #about .images { transform: scale(1.25)}
+
+  #exams ul { list-style: none } 
+  #exams ul li a {
+    display: block;
+    line-height: 2rem
+  }
+}
+
+
+
+
+   
+#patient .container {
+  background-image: url(img/bg-patient.webp);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover }    
+
+
+
+@media(min-width:768px){
+  #business .carousel-nav + div { 
+    height: 250px;
+    overflow-y: auto;
+  } 
+
+  #exams .scroll-y {
+    height: 300px;
+    overflow-y: auto }
+
+}
+
+@media(max-width:767.98px){
+  #contact .fs-5 { font-size: 100% !important }
+}
+
+
+footer { padding: calc(3rem + 3vw) 0 }
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus { color: var(--flex-dark) !important }
+
+.btn-white {
+  --flex-btn-bg: var(--flex-white); 
+  --flex-btn-border-color: var(--flex-white);
+  --flex-btn-hover-color: var(--flex-white);
+  --flex-btn-hover-bg: var(--flex-white);
+  --flex-btn-hover-border-color: var(--flex-white);
+  --flex-btn-focus-shadow-rgb: var(--flex-white);
+  --flex-btn-active-color: var(--flex-btn-hover-color);
+  --flex-btn-active-bg: var(--flex-white) ;
+  --flex-btn-active-border-color: var(--flex-white); }
+
+.ball-100{
+    width: 100px;
+    height: 100px }
+
+.ball-150{
+    width: 150px;
+    height: 150px }
+
+.ball-200{
+    width: 200px;
+    height: 200px }
+
+.ball-300{
+    width: 300px;
+    height: 300px }
+
+.fw-bold { font-weight: 800 !important }   
+
+@media(min-width:992px){
+  .p-md-10 { padding: 6rem !important }
+}
+
+footer > div { padding: calc(3rem + 2vw) 0 }
+
+/* WHATSAPP ICON FIXED
+///////////////////////////////////////////*/
+#whatsapp{
+  z-index: 5;
+  width: 72px;
+  height: 72px;
+  background-color: #fff;
+  bottom:5%;
+  right:5%;
+}
+
+/*ANIMAÇÕES BUTTON CARDS NA PAGINA EXAME
+//////////////////////////////*/
+
+.card-button > a.link-button{
+  transition: all 0.3s;
+}
+
+.card-button > a.link-button i{
+  transition: all 0.3s;
+}
+
+.card-button > a:hover{
+  transition: all 0.3s;
+}
+
+.card-button > a:hover i{
+  transition: all 0.3s;
+}
+
+.card-button > a.link-button:hover{
+  background-color: #555;
+  transition: all 0.3s;
+}
+
+.card-button > a.link-button:hover i{
+  color:#fff !important;
+  transition: all 0.3s;
+
+}
+
+.card-button > a:not(a.link-button):hover{
+  background-color: #d34343;
+  transition: all 0.3s;
+}
+.card-button > a:not(a.link-button):hover i{
+  color:#fff !important;
+  transition: all 0.3s;
+}
+
+.img-spinner{
+  overflow: visible;
+}
+
+.img-spinner::after{
+  /* border-top:4px solid var(--flex-primary); if border is fine*/
+  border-top-color: var(--flex-primary) !important;
+  border-left-color: var(--flex-primary) !important;
+  border: 3px solid rgba(0, 0, 0, 0);
+  content:"";
+  z-index:3;
+  position:absolute;
+  width:calc(100% + 50px);
+  height:calc(100% + 50px);
+  top:50%;
+  border-radius:100%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  animation: rotating 15s linear infinite;
+}
+
+@keyframes rotating {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}

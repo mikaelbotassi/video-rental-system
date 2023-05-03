@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1" author="breno.leal">
+        <createTable tableName="ATOR">
+            <column name="ID_ATOR" type="int" autoIncrement="true"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="NOME" type="varchar(255)"><constraints nullable="false"  unique="true" uniqueConstraintName="ATOR_NOME_UNIQUE"></constraints></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="breno.leal">
+        <createTable tableName="DIRETOR">
+            <column name="ID_DIRETOR" type="int" autoIncrement="true"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="NOME" type="varchar(255)"><constraints nullable="false"  unique="true" uniqueConstraintName="DIRETOR_NOME_UNIQUE"></constraints> </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="3" author="breno.leal">
+        <createTable tableName="CLASSIFICACAO">
+            <column name="ID_CLASSIFICACAO" type="int" autoIncrement="true"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="NOME" type="varchar(50)"><constraints nullable="false" unique="true" uniqueConstraintName="CLASSIFICACAO_NOME_UNIQUE"></constraints> </column>
+            <column name="VALOR" type="numeric"><constraints nullable="false"></constraints> </column>
+            <column name="PRAZO_DEVOLUCAO" type="datetime"><constraints nullable="false"></constraints></column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="4" author="breno.leal">
+        <createTable tableName="TITULO">
+            <column name="ID_TITULO" type="int" autoIncrement="true"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="NOME" type="varchar(255)"><constraints nullable="false" unique="true" uniqueConstraintName="TITULO_NOME_UNIQUE"></constraints></column>
+            <column name="ANO" type="char(4)"><constraints nullable="false"></constraints></column>
+            <column name="SINOPSE" type="varchar(10000)"></column>
+            <column name="CATEGORIA" type="varchar(200)"><constraints nullable="false"></constraints> </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="breno.leal">
+        <createTable tableName="ITEM">
+            <column name="ID_ITEM" type="int" autoIncrement="true"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="NUMERO_SERIE" type="varchar(200)"><constraints nullable="false"></constraints></column>
+            <column name="DT_AQUISICAO" type="datetime"><constraints nullable="false"></constraints> </column>
+            <column name="TIPO_ITEM" type="varchar(200)"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="breno.leal">
+        <addColumn tableName="ITEM">
+            <column name="ID_TITULO" type="int">
+                <constraints referencedTableName="TITULO" referencedColumnNames="ID_TITULO" foreignKeyName="ITEM_ID_TITULO_FK"></constraints>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="7" author="breno.leal" runOnChange="true">
+        <addColumn tableName="TITULO">
+            <column name="ID_DIRETOR" type="int">
+                <constraints referencedColumnNames="ID_DIRETOR" referencedTableName="DIRETOR" foreignKeyName="TITULO_ID_DIRETOR_FK"></constraints>
+            </column>
+            <column name="ID_CLASSIFICACAO" type="int">
+                <constraints referencedTableName="CLASSIFICACAO" referencedColumnNames="ID_CLASSIFICACAO" foreignKeyName="TITULO_ID_CLASSIFICACAO_FK"></constraints>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="8" author="breno.leal">
+        <createTable tableName="ATOR_TITULO">
+            <column name="ID_ATOR" type="int"></column>
+            <column name="ID_TITULO" type="int"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="9" author="breno.leal">
+        <addForeignKeyConstraint baseTableName="ATOR_TITULO" baseColumnNames="ID_ATOR" constraintName="ATOR_TITULO_ID_ATOR_FK" referencedTableName="ATOR"
+                                 referencedColumnNames="ID_ATOR"></addForeignKeyConstraint>
+
+        <addForeignKeyConstraint baseTableName="ATOR_TITULO" baseColumnNames="ID_TITULO" constraintName="ATOR_TITULO_ID_TITULO_FK" referencedTableName="TITULO"
+                                 referencedColumnNames="ID_TITULO"></addForeignKeyConstraint>
+    </changeSet>
+
+    <changeSet id="10" author="breno.leal">
+        <addPrimaryKey tableName="ATOR_TITULO" columnNames="ID_ATOR,ID_TITULO"></addPrimaryKey>
+    </changeSet>
+
+</databaseChangeLog>

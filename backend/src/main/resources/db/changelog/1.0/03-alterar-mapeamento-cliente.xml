@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1" author="breno" runOnChange="true">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="SOCIO"></tableExists>
+            <tableExists tableName="DEPENDENTE"></tableExists>
+        </preConditions>
+        <dropTable tableName="SOCIO"/>
+        <dropTable tableName="DEPENDENTE"/>
+    </changeSet>
+
+    <changeSet id="2" author="breno">
+        <preConditions onFail="CONTINUE">
+            <foreignKeyConstraintExists foreignKeyName="LOCACAO_FK_CLIENTE" foreignKeyTableName="LOCACAO"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="LOCACAO" constraintName="LOCACAO_FK_CLIENTE"/>
+    </changeSet>
+
+    <changeSet id="3" author="breno">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="CLIENTE"/>
+        </preConditions>
+        <dropTable tableName="CLIENTE"/>
+    </changeSet>
+</databaseChangeLog>

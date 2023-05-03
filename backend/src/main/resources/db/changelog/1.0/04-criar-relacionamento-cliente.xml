@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1" author="breno">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="CLIENTE"/></not>
+        </preConditions>
+        <createTable tableName="CLIENTE">
+            <column name="ID_CLIENTE" type="int" autoIncrement="true"><constraints primaryKeyName="PK_CLIENTE" nullable="false" primaryKey="true"></constraints> </column>
+            <column name="NUM_INSCRICAO" type="varchar(100)"><constraints nullable="false" unique="true"></constraints></column>
+            <column name="NOME" type="varchar(255)"><constraints nullable="false" unique="true" uniqueConstraintName="CLIENTE_NOME_UNIQUE"></constraints></column>
+            <column name="SEXO" type="varchar(30)"></column>
+            <column name="IS_ATIVO" type="boolean"><constraints nullable="false"></constraints> </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="breno">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="SOCIO"/></not>
+        </preConditions>
+        <createTable tableName="SOCIO">
+            <column name="ID_CLIENTE" type="int"><constraints foreignKeyName="FK_SOCIO_CLIENTE" referencedTableName="CLIENTE" referencedColumnNames="ID_CLIENTE"></constraints> </column>
+            <column name="CPF" type="char(11)"><constraints nullable="false" uniqueConstraintName="SOCIO_CPF_UNIQUE" unique="true"></constraints> </column>
+            <column name="TEL" type="char(11)"><constraints nullable="false"></constraints> </column>
+        </createTable>
+        <addPrimaryKey tableName="SOCIO" columnNames="ID_CLIENTE"></addPrimaryKey>
+    </changeSet>
+    
+    <changeSet id="3" author="breno">
+        <addColumn tableName="SOCIO">
+            <column name="endereco" type="varchar(1000)"></column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="4" author="breno">
+        <createTable tableName="DEPENDENTE">
+            <column name="ID_SOCIO" type="int"><constraints foreignKeyName="FK_DEPENDENTE_SOCIO" referencedColumnNames="ID_CLIENTE" referencedTableName="SOCIO"/></column>
+            <column name="ID_CLIENTE" type="int"><constraints foreignKeyName="FK_DEPENDENTE_CLIENTE" referencedTableName="CLIENTE" referencedColumnNames="ID_CLIENTE"/></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="breno">
+        <addPrimaryKey tableName="DEPENDENTE" columnNames="ID_CLIENTE" constraintName="FK_DEPENDENTE"/>
+    </changeSet>
+
+    <changeSet id="6" author="breno">
+        <addForeignKeyConstraint baseTableName="LOCACAO" baseColumnNames="ID_CLIENTE" constraintName="FK_LOCACAO_CLIENTE" referencedTableName="CLIENTE"
+                                 referencedColumnNames="ID_CLIENTE"/>
+    </changeSet>
+</databaseChangeLog>
